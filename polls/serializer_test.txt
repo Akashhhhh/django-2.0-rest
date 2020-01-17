@@ -1,0 +1,40 @@
+# create
+
+>>> from polls.serializers import PollSerializer
+>>> from polls.models import Poll
+>>> poll_serializer = PollSerializer(data={"question": "Mojito or Caipirinha?", "created_by": 1})
+>>> poll_serializer.is_valid()
+True
+>>> poll = poll_serializer.save()
+>>> 
+>>> poll.pk
+1
+
+#Update
+
+>>> poll_serializer = PollSerializer(instance=poll, data={"question": "Mojito, Caipirinha or margarita?", "created_by": 1})
+>>> poll_serializer.is_valid()
+True
+>>> poll_serializer.save()
+<Poll: Mojito, Caipirinha or margarita?>
+>>> Poll.objects.get(pk=1).question
+'Mojito, Caipirinha or margarita?'
+>>> 
+
+>>> from polls.serializers import ChoiceSerializer, VoteSerializer
+>>> from polls.models import Choice, Vote
+>>> choice_erializer = ChoiceSerializer(data={'poll':2, 'choice_text':"Mojito"})
+>>> choice_erializer.is_valid()
+False
+>>> choice_erializer = ChoiceSerializer(data={'poll':1, 'choice_text':"Mojito"})
+>>> choice_erializer.is_valid()
+True
+>>> choice = choice_erializer.save()
+>>> choice.pk
+
+
+>>> vote_serializer = VoteSerializer(data={'choice':1, 'poll': 1, 'voted_by':1})
+>>> vote_serializer.is_valid()
+True 
+>>> vote = vote_serializer.save()
+>>> vote.pk
