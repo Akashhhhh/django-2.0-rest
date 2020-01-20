@@ -39,7 +39,7 @@ class CreateVote(generics.CreateAPIView):
     serializer_class = VoteSerializer
 
 
-class ChoiceList(generics.ListCreateAPIView):
+class ChoiceListByPollId(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Choice.objects.filter(poll_id=self.kwargs["pk"])
         return queryset

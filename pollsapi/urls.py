@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 urlpatterns = [
+    
+    path(r'', include('polls.urls')),
+    #path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path(r'auth/', include('rest_framework_social_oauth2.urls')),
     path('admin/', admin.site.urls),
-    re_path(r'^', include('polls.urls')),
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
